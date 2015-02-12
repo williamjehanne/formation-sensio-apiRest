@@ -11,6 +11,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ClientFormType extends AbstractType
 {
@@ -25,6 +26,7 @@ class ClientFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Client',
+            'csrf_protection' => false, // eneleve la protection CSRF token
         ));
     }
     public function getName()

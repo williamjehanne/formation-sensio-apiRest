@@ -23,7 +23,6 @@ class DefaultController extends Controller
     public function whoAmIAction()
     {
 
-
         return $this->getUser();
     }
 }
