@@ -1,7 +1,11 @@
 security:
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    admin:
+                        password: neobe
+                        roles: ROLE_USER
 
     firewalls:
         dev:
@@ -11,3 +15,23 @@ security:
         default:
             anonymous: ~
 
+        login:
+            pattern:  ^/login
+            stateless: true
+            anonymous: true
+
+            form_login:
+                check_path:               /login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        api:
+            pattern:   ^/
+            stateless: true
+            lexik_jwt: ~
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/,       roles: IS_AUTHENTICATED_FULLY }
